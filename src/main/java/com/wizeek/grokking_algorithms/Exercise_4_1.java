@@ -1,5 +1,8 @@
 package main.java.com.wizeek.grokking_algorithms;
 
+/**
+ * Calculates the sum of integers in an array using recursion.
+ */
 class Exercise_4_1 {
     public static void main(String[] args) {
         int sum = new Exercise_4_1().sum(new int[]{1, 2, 3, 4, 5});
