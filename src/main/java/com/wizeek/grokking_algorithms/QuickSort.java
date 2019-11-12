@@ -2,10 +2,12 @@ package main.java.com.wizeek.grokking_algorithms;
 
 public class QuickSort {
     public static void main(String[] args) {
-        int[] array1 = new int[]{33, 10, 15, 7};
+        int[] array1 = new int[]{2, 33, 10, 11, 15, 7, 24, 0};
+        int[] array2 = new int[]{1, 1, 1, 1, 1};
 
         printArray(array1);
-        printArray(sort(array1));
+//        printArray(sort(array1));
+        printArray(realSort(array1));
     }
 
     private static void printArray(int[] array) {
@@ -59,5 +61,59 @@ public class QuickSort {
         mergedArray[pivotIndex] = pivotValue;
 
         return mergedArray;
+    }
+
+    /**
+     * Does not create new arrays, operates on existing one.
+     */
+    private static int[] realSort(int[] array) {
+        sort(array, 0, array.length - 1);
+        return array;
+    }
+
+    // end is inclusive
+    private static void sort(int[] array, int start, int end) {
+        if (end - start < 1) {
+            return;
+        }
+        if (end - start == 1) {
+            if (array[start] > array[end]) {
+                int temp = array[start];
+                array[start] = array[end];
+                array[end] = temp;
+            }
+            return;
+        }
+        int pivot = array[(end + start) / 2];
+        int left = start;
+        int right = end;
+
+        for (int i = 0; i < array.length; i++) {
+            if (i == (end + start) / 2) {
+                System.out.print("[" + array[i] + "] ");
+            } else {
+                System.out.print(array[i] + " ");
+            }
+        }
+        System.out.println();
+
+        while (left <= right) {
+            while (array[left] < pivot) {
+                left++;
+            }
+            while (array[right] > pivot) {
+                right--;
+            }
+            if (left <= right) {
+                int temp = array[left];
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
+            }
+        }
+
+        sort(array, start, right);
+        sort(array, left, end);
     }
 }
